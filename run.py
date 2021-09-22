@@ -61,7 +61,8 @@ def capture_data():
   sale_data = get_sale_data()
   adv_data = get_advertising_data()
   price_data = get_price_data()
-  return [today_data, sale_data, price_data, adv_data]
+  acos_data = calculate_acos()
+  return [today_data, sale_data, price_data, adv_data,acos_data]
 
 def get_advertising_data():
     """
@@ -142,6 +143,10 @@ def validate_data_price(data_str_price):
 
     return True
 
+def calculate_acos():
+    acos_data = (adv_data / sales_data)/price_data
+    return acos_data 
+
 
 def update_sales_worksheet(data):
     """
@@ -152,8 +157,11 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("Sales worksheet updated successfully.\n")
 
+
+
 def main():
-  data = capture_data()
-  update_sales_worksheet(data)
+    "Run all program functions"
+    data = capture_data()
+    update_sales_worksheet(data)
 
 main()
