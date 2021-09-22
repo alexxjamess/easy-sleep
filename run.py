@@ -29,25 +29,27 @@ def get_sale_data():
         print('Example: 0 OR 4 \n')
 
         data_str = input('Enter Todays Sales:\n')
+
+        sales_data = data_str
         
-        if validate_data(data_str):
-            print("Data is valid!")
+        if validate_data(sales_data):
+            print("Data is valid!\n")
             break
 
-    return data_str
+    return sales_data
     
 
-def validate_data(data_str):
+def validate_data(sales_data):
     """
     Inside the try, converts all string values into integers.
     Raises ValueError if strings cannot be converted into int,
     or if the value is less than 0
     """
     try:
-        data_sales = int(data_str) 
+        data_sales = int(sales_data) 
         if data_sales < 0:
             raise ValueError(
-                f"Figure 0 or greater required, you provided {data_str}"
+                f"Figure 0 or greater required, you provided {sales_data}"
             )
     except ValueError as e:
         print(f"Invalid data: {e}, please enter a valid number.\n")
@@ -56,6 +58,7 @@ def validate_data(data_str):
     return True    
 
 get_sale_data()
+
 
 def get_advertising_data():
     """
@@ -72,7 +75,7 @@ def get_advertising_data():
         data_str_advertising = input('Enter Todays Total Advertising Cost:\n')
         
         if validate_data_adverstising(data_str_advertising):
-            print("Data is valid!")
+            print("Data is valid!\n")
             break
 
     return data_str_advertising
@@ -113,7 +116,7 @@ def get_price_data():
         data_str_price = input('Enter Todays Sale Price:\n')
         
         if validate_data_price(data_str_price):
-            print("Data is valid!")
+            print("Data is valid!\n")
             break
 
     return data_str_price
@@ -138,3 +141,16 @@ def validate_data_price(data_str_price):
     return True   
 
 get_price_data()
+
+def update_sales_worksheet(data):
+    """
+    Update sales worksheet, add new row with the list data provided
+    """
+    print("Updating sales worksheet...\n")
+    sales_worksheet = SHEET.worksheet("sales")
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully.\n")
+
+
+update_sales_worksheet(sales_data) 
+
