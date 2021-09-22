@@ -97,3 +97,44 @@ def validate_data_adverstising(data_str_advertising):
     return True   
 
 get_advertising_data()
+
+def get_price_data():
+    """
+    Get daily Price from user.
+    Run a while loop to collect a valid data string via the the terminal, 
+    which must be a number greater or equal to 28.99 and less than 33.99. 
+    The loop will repeatedly request data unitl it is valid
+    """
+    while True:
+        print(f'Please enter the Sale Price for {today}')
+        print('Price Should be Greater Than or Equal to 29.99 and Less than 33.99')
+        print('Example: 29.99 OR 31.99 \n')
+
+        data_str_price = input('Enter Todays Sale Price:\n')
+        
+        if validate_data_price(data_str_price):
+            print("Data is valid!")
+            break
+
+    return data_str_price
+    
+
+def validate_data_price(data_str_price):
+    """
+    Inside the try, converts all string values into float.
+    Raises ValueError if strings cannot be converted into float,
+    or if the value is less than 28.99 and geater than 33.99
+    """
+    try:
+        data_price = float(data_str_price) 
+        if data_price > 33.99:
+            raise ValueError(
+                f"Figure greater than or equal to 28.99 and less than 33.99 required, you provided {data_str_price}"
+            )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please enter a valid number.\n")
+        return False
+
+    return True   
+
+get_price_data()
