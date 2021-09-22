@@ -12,8 +12,14 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('easysleep')
 
-sales = SHEET.get_worksheet(0)
+from datetime import date
+today = str(date.today())
 
-data = sales.get_all_values()
 
-print(data)
+def get_sale_data():
+    """
+    Get daily sales total from user
+    """
+    print(f'Please enter the total number of sales for {today}')
+
+get_sale_data()
