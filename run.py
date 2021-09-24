@@ -56,13 +56,7 @@ def validate_data(sales_data):
 
     return True
 
-def capture_data():
-  today_data = today
-  sale_data = get_sale_data()
-  adv_data = get_advertising_data()
-  price_data = get_price_data()
-  acos_data = calculate_acos()
-  return [today_data, sale_data, price_data, adv_data,acos_data]
+
 
 def get_advertising_data():
     """
@@ -82,8 +76,6 @@ def get_advertising_data():
             print("Data is valid!\n")
             return data_str_advertising
 
-
-    
 
 def validate_data_adverstising(data_str_advertising):
     """
@@ -152,8 +144,14 @@ def validate_data_price(data_str_price):
 
     return True
 
-
-    
+def capture_data():
+    """ Function to collect all data to return so it can be added to spreadsheet"""
+    today_data = today
+    sale_data = get_sale_data()
+    adv_data = get_advertising_data()
+    price_data = get_price_data()
+    acos_data = calculate_acos()
+    return [today_data, sale_data, price_data, adv_data,acos_data]
 
 def update_sales_worksheet(data):
     """
