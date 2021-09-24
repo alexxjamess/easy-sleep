@@ -113,7 +113,7 @@ def get_price_data():
     """
     while True:
         print(f'Please enter the Sale Price for {today}')
-        print('Price Should be Greater Than or Equal to 29.99 and Less than 33.99')
+        print('Price Should be Greater Than or Equal to 28.99 and Less than 33.99')
         print('Example: 29.99 OR 31.99 \n')
 
         data_str_price = input('Enter Todays Sale Price:\n')
@@ -123,7 +123,12 @@ def get_price_data():
             return data_str_price
 
 
-    
+def calculate_acos():
+    sale_data = int(get_sale_data())
+    adv_data = int(get_advertising_data())
+    price_data = float(get_price_data())
+    acos_data = (adv_data / sale_data) / price_data
+    return acos_data    
 
 def validate_data_price(data_str_price):
     """
@@ -143,10 +148,8 @@ def validate_data_price(data_str_price):
 
     return True
 
-def calculate_acos():
-    acos_data = (adv_data / sales_data)/price_data
-    return acos_data 
 
+    
 
 def update_sales_worksheet(data):
     """
@@ -160,8 +163,11 @@ def update_sales_worksheet(data):
 
 
 def main():
-    "Run all program functions"
+    """
+    Run all program functions
+    """
     data = capture_data()
     update_sales_worksheet(data)
+    calculate_acos()
 
 main()
