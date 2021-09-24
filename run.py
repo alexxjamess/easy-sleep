@@ -124,6 +124,10 @@ def get_price_data():
 
 
 def calculate_acos():
+    """ This function retrieves user inputs converts them to an interger or float
+     and then preforms a calculation to work out ACOS
+     Which is (Advertsing Cost/No of Sales)/Sale Price
+     """
     sale_data = int(get_sale_data())
     adv_data = int(get_advertising_data())
     price_data = float(get_price_data())
@@ -160,6 +164,14 @@ def update_sales_worksheet(data):
     sales_worksheet.append_row(data)
     print("Sales worksheet updated successfully.\n")
 
+def get_daily_summary():
+    """ This function will get the last row of the table and return it
+    it will then print the results to the terminal for the users to see
+    """
+    print("Getting Daily Summary...\n")
+    sales_total = SHEET.worksheet("sales").get_all_values()
+    sales_daily = sales_total[-1]
+    print(f'Here is your daily Summary for {sales_daily[0]}\n Total Daily Sales:{sales_daily[1]}\n Total Adversiting Cost Today:£{sales_daily[3]}\n Price Per Unit £{sales_daily[2]}\n Todays ACOS {sales_daily[4]}\n Reccomended Monthly Order Quantity{sales_daily[5]}')
 
 
 def main():
@@ -169,5 +181,6 @@ def main():
     data = capture_data()
     update_sales_worksheet(data)
     calculate_acos()
+    get_daily_summary()
 
 main()
