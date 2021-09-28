@@ -2,7 +2,6 @@ import gspread
 from google.oauth2.service_account import Credentials
 from datetime import date
 
-today = str(date.today())
 
 SCOPE = [
   "https://www.googleapis.com/auth/spreadsheets",
@@ -25,7 +24,7 @@ def get_sale_data():
     """
 
     while True:
-        print(f'Please enter the total number of sales for {today}')
+        print(f'Please enter the total number of sales for {str(date.today())}')
         print('Number of Sales Should be Greater Than or Equal to 0')
         print('Example: 0 OR 4 \n')
 
@@ -66,7 +65,7 @@ def get_advertising_data():
     The loop will repeatedly request data unitl it is valid
     """
     while True:
-        print(f'Please enter the total advertising cost for {today}')
+        print(f'Please enter the total advertising cost for {str(date.today())}')
         print('Number of Advertising Cost Should be Greater Than or Equal to 0 and Less than 175')
         print('Example: 50 OR 153 \n')
 
@@ -104,7 +103,7 @@ def get_price_data():
     The loop will repeatedly request data unitl it is valid
     """
     while True:
-        print(f'Please enter the Sale Price for {today}')
+        print(f'Please enter the Sale Price for {str(date.today())}')
         print('Price Should be Greater Than or Equal to 28.99 and Less than 33.99')
         print('Example: 29.99 OR 31.99 \n')
 
@@ -115,16 +114,13 @@ def get_price_data():
             return data_str_price
 
 
-def calculate_acos():
+def calculate_acos(sale_data, adv_data, price_data):
     """ This function retrieves user inputs converts them to an interger or float
      and then preforms a calculation to work out ACOS
      Which is (Advertsing Cost/No of Sales)/Sale Price
      """
-    sale_data = int(get_sale_data())
-    adv_data = int(get_advertising_data())
-    price_data = float(get_price_data())
-    acos_data = (adv_data / sale_data) / price_data
-    return acos_data    
+    acos_data = float((int(adv_data) / int(sale_data)) / float(price_data))
+    return acos_data
 
 def validate_data_price(data_str_price):
     """
@@ -146,12 +142,13 @@ def validate_data_price(data_str_price):
 
 def capture_data():
     """ Function to collect all data to return so it can be added to spreadsheet"""
-    today_data = today
+    today_data = str(date.today())
     sale_data = get_sale_data()
     adv_data = get_advertising_data()
     price_data = get_price_data()
-    acos_data = calculate_acos()
+    acos_data = calculate_acos(sale_data, adv_data, price_data)
     return [today_data, sale_data, price_data, adv_data,acos_data]
+    choice
 
 def update_sales_worksheet(data):
     """
@@ -170,15 +167,32 @@ def get_daily_summary():
     sales_total = SHEET.worksheet("sales").get_all_values()
     sales_daily = sales_total[-1]
     print(f'Here is your daily Summary for {sales_daily[0]}\n Total Daily Sales:{sales_daily[1]}\n Total Adversiting Cost Today:£{sales_daily[3]}\n Price Per Unit £{sales_daily[2]}\n Todays ACOS {sales_daily[4]}\n Reccomended Monthly Order Quantity{sales_daily[5]}')
+    choice
 
 
+def print_all_data():
+    all_sales_data = SHEET.worksheet("sales").get_all_values()
+    for each_entry in all_sales_data:
+            print(f'{each_entry[0]}\n Total Daily Sales:{each_entry[1]}\n Total Adversiting Cost Today:£{each_entry[3]}\n Price Per Unit £{each_entry[2]}\n Todays ACOS {each_entry[4]}\n Reccomended Monthly Order Quantity{each_entry[5]}')
+    
+print("To Enter Daily Data Select A")
+print("To get the last daily summary select B")
+print("To View all Data select C")
+choice = str(input("Enter choice: A/B/C:"))
+
+if choice == "A":
+    data = capture_data()
+    update_sales_worksheet(data)
+elif choice == "B":
+    get_daily_summary()
+elif choice == "C":
+    print_all_data()
+    
 def main():
     """
     Run all program functions
     """
     data = capture_data()
     update_sales_worksheet(data)
-    calculate_acos()
     get_daily_summary()
 
-main()
