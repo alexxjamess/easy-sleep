@@ -194,7 +194,7 @@ def print_all_data():
 print("To Enter Daily Data Select A")
 print("To get the last daily summary select B")
 print("To View all Data select C")
-choice = str(input("Enter choice: A/B/C:"))
+choice = str(input("Enter choice: A/B/C:\n"))
 
 if choice == "A":
     data = capture_data()
@@ -217,7 +217,7 @@ def main():
 while True:
     a = input("Enter Y/N to continue: ")
     if a == "Y":
-        choice = str(input("Enter choice: A/B/C:"))
+        choice = str(input("Enter choice: A/B/C:\n"))
         if choice == "A":
             data = capture_data()
             update_sales_worksheet(data)
