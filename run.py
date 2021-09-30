@@ -121,6 +121,13 @@ def calculate_acos(sale_data, adv_data, price_data):
     acos_data = float((int(adv_data) / int(sale_data)) / float(price_data))
     return acos_data
 
+def calculate_order_quantity(sale_data):
+    """
+    This function uses daily sale data to calacualte the 
+    monthly reccomened order quantity
+    """
+    order_quantity = (int(sale_data) * 365) /12
+    return order_quantity 
 
 def validate_data_price(data_str_price):
     """
@@ -148,9 +155,8 @@ def capture_data():
     adv_data = get_advertising_data()
     price_data = get_price_data()
     acos_data = calculate_acos(sale_data, adv_data, price_data)
-    return [today_data, sale_data, price_data, adv_data, acos_data]
-    choice
-
+    order_quantity = calculate_order_quantity(sale_data)
+    return [today_data, sale_data, price_data, adv_data, acos_data,order_quantity]
 
 def update_sales_worksheet(data):
     """
@@ -170,16 +176,16 @@ def get_daily_summary():
     sales_total = SHEET.worksheet("sales").get_all_values()
     sales_daily = sales_total[-1]
     print(
-        f"Here is your daily Summary for {sales_daily[0]}\n Total Daily Sales:{sales_daily[1]}\n Total Adversiting Cost Today:£{sales_daily[3]}\n Price Per Unit £{sales_daily[2]}\n Todays ACOS {sales_daily[4]}\n Reccomended Monthly Order Quantity{sales_daily[5]}"
+        f"Here is your daily Summary for {sales_daily[0]}\n Total Daily Sales:{sales_daily[1]}\n Total Advertising Cost Today:£{sales_daily[3]}\n Price Per Unit £{sales_daily[2]}\n Todays ACOS {sales_daily[4]}\n Reccomended Monthly Order Quantity: b{sales_daily[5]}"
     )
-    choice
+    
 
 
 def print_all_data():
     all_sales_data = SHEET.worksheet("sales").get_all_values()
     for each_entry in all_sales_data:
         print(
-            f"{each_entry[0]}\n Total Daily Sales:{each_entry[1]}\n Total Adversiting Cost Today:£{each_entry[3]}\n Price Per Unit £{each_entry[2]}\n Todays ACOS {each_entry[4]}\n Reccomended Monthly Order Quantity{each_entry[5]}"
+            f"{each_entry[0]}\n Total Daily Sales:{each_entry[1]}\n Total Advertising Cost Today:£{each_entry[3]}\n Price Per Unit £{each_entry[2]}\n Todays ACOS {each_entry[4]}\n Reccomended Monthly Order Quantity: {each_entry[5]}"
         )
 
 
@@ -204,3 +210,20 @@ def main():
     data = capture_data()
     update_sales_worksheet(data)
     get_daily_summary()
+
+while True:
+    a = input("Enter Y/N to continue: ")
+    if a=="Y":
+        choice = str(input("Enter choice: A/B/C:"))
+        if choice == "A":
+            data = capture_data()
+            update_sales_worksheet(data)
+        elif choice == "B":
+             get_daily_summary()
+        elif choice == "C":
+            print_all_data()
+        continue
+    elif a=="N":
+        break
+    
+    
