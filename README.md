@@ -13,10 +13,19 @@ EasySleep is a brand that sells temporary blackout blinds, they sell their produ
 ## How to Use 
 
 * Run the run.py file
+* Choose an option from A,B,C depending if you want to enter data, get the last summary, or all data
+### Option A
 * Input the total number of daily sales
 * Next Imput the total advertising cost for that day
 * Finally Input the price per unit that day
-* Wait while the system calculate your acos and returns your daily summary
+* System will calculate acos and order quantity an update spreadsheet
+* The user will be then prompted to contiue or end.
+### Option B
+* Will show the previous days summary 
+* The user will be then prompted to continue or end.
+### Option C
+* Will show all the data in the spreadsheet
+* The user will be then prompted to continue or end.
 
 ## Features 
 
@@ -37,6 +46,9 @@ When you create the app, you will need to add two buildpacks from the _Settings_
 * The functions will then return a 'Daily Summary' in the terminal of the inputted calculations as well as the calulations 
 ### API Spreasheet Update
 * The spreasheet will get updated with user inputed data and calculations
+### Choice
+* The user will be given a choice on what they wish do to, enter data or view
+* The user will be given a choice on if they would like to continue or not 
 
 ## Testing 
 ### Sales Input Function and Validation
@@ -58,5 +70,10 @@ When you create the app, you will need to add two buildpacks from the _Settings_
 ![Test 3 Advertising Iput](./assets/images/advertising-input-test-3.jpg)
 * The validation works correctly when data that is below 0 or above 175 returning error and requesting the data to be entered again 
 
------
-Happy coding!
+## Spreadsheet 
+Link to spreadsheet https://docs.google.com/spreadsheets/d/1PdROOvZJ8ri_ZWFjpySQprSaOuknZzx5k9gvUY064fI/edit?usp=sharing
+
+## Deployment
+The project was deployed using Code Institutes mock terminal for Herokui
+* Steps for Deployment
+    * For
